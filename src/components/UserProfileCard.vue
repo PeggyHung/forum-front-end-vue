@@ -91,7 +91,7 @@ export default {
     async addFollowing(userId) {
       try {
         const response = await usersAPI.addFollowing({ userId });
-        console.log("response", response);
+        // console.log("response", response);
 
         const { data, statusText } = response;
 
@@ -102,7 +102,7 @@ export default {
         this.isFollowed = true;
       } catch (error) {
         Toast.fire({
-          icon: "warning",
+          icon: "error",
           title: "無法加入追隨，請稍後再試",
         });
       }
@@ -110,7 +110,7 @@ export default {
     async deleteFollowing(userId) {
       try {
         const response = await usersAPI.deleteFollowing({ userId });
-        console.log("response", response);
+        // console.log("response", response);
 
         const { data, statusText } = response;
 
@@ -121,7 +121,7 @@ export default {
         this.isFollowed = false;
       } catch (error) {
         Toast.fire({
-          icon: "warning",
+          icon: "error",
           title: "無法移除追隨，請稍後再試",
         });
       }

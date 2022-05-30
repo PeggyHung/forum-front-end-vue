@@ -111,8 +111,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('to', to)
-  console.log('from', from)
+  // console.log('to', to)
+  // console.log('from', from)
   // 使用 dispatch 呼叫 Vuex 內的 actions
   store.dispatch('fetchCurrentUser')
   next()

@@ -65,7 +65,7 @@ export default {
     async fetchRestaurant(restaurantId) {
       try {
         const { data } = await restaurantsAPI.getRestaurant({ restaurantId });
-        console.log("data", data);
+        // console.log("data", data);
         const { restaurant, isFavorited, isLiked } = data;
         const {
           id,

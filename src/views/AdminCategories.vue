@@ -132,7 +132,7 @@ export default {
           name: this.newCategoryName,
         });
 
-        console.log("data", data);
+        // console.log("data", data);
 
         this.categories.push({
           id: data.categoryId,
@@ -151,7 +151,11 @@ export default {
         // TODO: 透過 API 告知伺服器欲刪除的餐廳類別
         const { data } = await adminAPI.categories.delete({ categoryId });
 
-        console.log("data", data);
+        // console.log("data", data);
+
+        if (data.status !== "success") {
+          throw new Error(data.message)
+        }
 
         // 將該餐廳類別從陣列中移除
         this.categories = this.categories.filter(

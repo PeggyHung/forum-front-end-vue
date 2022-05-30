@@ -78,7 +78,6 @@ export default {
           icon: "error",
           title: "無法將餐廳加入最愛，請稍後再試",
         });
-        console.log("error", error);
       }
     },
     async deleteFavorite(restaurantId) {
@@ -98,7 +97,6 @@ export default {
           icon: "error",
           title: "無法將餐廳移除最愛，請稍後再試",
         });
-        console.log("error", error);
       }
     },
   },

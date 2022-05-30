@@ -90,10 +90,9 @@ export default {
         }
       } catch (error) {
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '無法將餐廳加入最愛，請稍後再試'
         })
-        console.log('error', error)
       }
     },
     async deleteFavorite(restaurantId) {
@@ -110,10 +109,9 @@ export default {
         }
       } catch (error) {
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '無法將餐廳移除最愛，請稍後再試'
         })
-        console.log('error', error)
       } 
     },
     async addLike(restaurantId) {
@@ -130,10 +128,9 @@ export default {
         }
       } catch (error) {
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '無法對餐廳按讚，請稍後再試'
         })
-        console.log('error', error)
       }
     },
     async deleteLike(restaurantId) {
@@ -150,10 +147,9 @@ export default {
         }
       } catch (error) {
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '無法對餐廳取消按讚，請稍後再試'
         })
-        console.log('error', error)
       }
     },
   }

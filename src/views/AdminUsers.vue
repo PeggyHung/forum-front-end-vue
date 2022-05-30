@@ -61,7 +61,7 @@ export default {
     async fetchUser() {
       try {
         const response = await adminAPI.users.get();
-        console.log("response", response);
+        // console.log("response", response);
 
         const { data, statusText } = response;
 
@@ -85,7 +85,7 @@ export default {
           userId,
           isAdmin: willBeAdmin.toString(),
         });
-        console.log("response", response);
+        // console.log("response", response);
 
         const { data, statusText } = response;
 

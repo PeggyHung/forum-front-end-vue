@@ -71,14 +71,13 @@ export default {
           icon: "error",
           title: "無法顯示餐廳清單，請稍後再試",
         });
-        console.log(error);
       }
     },
     async deleteRestaurant(restaurantId) {
       try {
         const response = await adminAPI.restaurants.delete({ restaurantId });
 
-        console.log("response", response);
+        // console.log("response", response);
 
         if (response.statusText !== "OK") {
           throw new Error(response.message);
@@ -92,7 +91,6 @@ export default {
           icon: "error",
           title: "無法刪除餐廳資訊，請稍後再試",
         });
-        console.log(error);
       }
     },
   },

@@ -46,7 +46,7 @@ export default {
       try {
         const {data} = await restaurantsAPI.createComment({ restaurantId: this.restaurantId,
          text: this.text })
-        console.log('data', data)
+        // console.log('data', data)
 
         this.$emit('after-create-comment', {
           commentId: data.commentId, 
@@ -56,7 +56,7 @@ export default {
         this.text = "" 
       } catch (error) {
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '無法新增餐廳評論，請稍後再試'
         })
       } 

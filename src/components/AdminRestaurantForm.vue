@@ -158,7 +158,7 @@ export default {
       try {
         const response = await adminAPI.categories.get()
         
-        console.log('response', response)
+        // console.log('response', response)
 
         const {data, request} = response
 
@@ -171,10 +171,9 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '無法取得餐廳類別，請稍後再試'
         })
-        console.log(error)
       }
     },
     handleFileChange(e) {
@@ -208,7 +207,7 @@ export default {
       const form = e.target // <form></form>
       
       const formData = new FormData(form)
-      console.log("test",formData)
+      // console.log("test",formData)
       this.$emit('after-submit', formData)
     }
   }
