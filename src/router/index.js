@@ -136,15 +136,15 @@ router.beforeEach( async (to, from, next) => {
   }
   
   // 對於不需要驗證 token 的頁面
-  const pathWithoutAuthentication = ['sign-up', 'sign-in']
+  const pathsWithoutAuthentication = ['sign-up', 'sign-in']
 
   // 如果 token 無效則轉址到登入頁
-  if (!isAuthenticated && !pathWithoutAuthentication.includes(to.name)) {
+  if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
     next('/signin')
     return
   }
   // 如果 token 有效則轉址到餐廳首頁
-  if (isAuthenticated && pathWithoutAuthentication.includes(to.name)) {
+  if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
     next('/restaurants')
     return
   }
