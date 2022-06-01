@@ -81,7 +81,7 @@ const routes = [
     path: '/admin/restaurants',
     name: 'admin-restaurants',
     component: () => import('../views/AdminRestaurants.vue'),
-    beforeEnter: authorizeIsAdmin 
+    beforeEnter: authorizeIsAdmin
   },
   {
     path: '/admin/restaurants/new',
@@ -125,16 +125,16 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach( async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const tokenInLocalStorage = localStorage.getItem('token')
   const tokenInStore = store.state.token
   let isAuthenticated = store.state.isAuthenticated
- 
+
   // 比較 localStorage 和 store 中的 token 是否一樣
   if (tokenInLocalStorage && tokenInLocalStorage !== tokenInStore) {
     isAuthenticated = await store.dispatch('fetchCurrentUser')
   }
-  
+
   // 對於不需要驗證 token 的頁面
   const pathsWithoutAuthentication = ['sign-up', 'sign-in']
 
@@ -150,6 +150,15 @@ router.beforeEach( async (to, from, next) => {
   }
 
   next()
+})
+
+router.onError((error) => {
+  const pattern = /Loading chunk (\d) + failed/g
+  const isChunkLoadFailed = error.message.match(pattern)
+  const targetPath = router.history.pending.fullPath
+  if (isChunkLoadFailed) {
+    router.replace(targetPath)
+  }
 })
 
 export default router
