@@ -11,7 +11,8 @@ export default {
     return apiHelper.get(`/users/${userId}`)
   },
   getTopUsers() {
-    return apiHelper.get('/users/top'},
+    return apiHelper.get('/users/top')
+  },
   addFavorite({ restaurantId }) {
     return apiHelper.post(`/favorite/${restaurantId}`, null)
   },
