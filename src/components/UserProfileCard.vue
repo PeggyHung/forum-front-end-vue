@@ -37,6 +37,7 @@
               v-if="isFollowed"
               type="button"
               class="btn btn-danger"
+              :disabled="isProcessing"
               @click.stop.prevent="deleteFollowing(user.id)"
             >
               取消追蹤
@@ -45,6 +46,7 @@
               v-else
               type="button"
               class="btn btn-primary"
+              :disabled="isProcessing"
               @click.stop.prevent="addFollowing(user.id)"
             >
               追蹤
@@ -80,6 +82,7 @@ export default {
   data() {
     return {
       isFollowed: this.initialIsFollowed,
+      isProcessing: false,
     };
   },
   watch: {
@@ -90,6 +93,7 @@ export default {
   methods: {
     async addFollowing(userId) {
       try {
+        this.isProcessing = true;
         const response = await usersAPI.addFollowing({ userId });
         // console.log("response", response);
 
@@ -100,7 +104,9 @@ export default {
         }
 
         this.isFollowed = true;
+        this.isProcessing = false;
       } catch (error) {
+        this.isProcessing = false;
         Toast.fire({
           icon: "error",
           title: "無法加入追隨，請稍後再試",
@@ -109,6 +115,7 @@ export default {
     },
     async deleteFollowing(userId) {
       try {
+        this.isProcessing = true;
         const response = await usersAPI.deleteFollowing({ userId });
         // console.log("response", response);
 
@@ -119,7 +126,9 @@ export default {
         }
 
         this.isFollowed = false;
+        this.isProcessing = false;
       } catch (error) {
+        this.isProcessing = false;
         Toast.fire({
           icon: "error",
           title: "無法移除追隨，請稍後再試",

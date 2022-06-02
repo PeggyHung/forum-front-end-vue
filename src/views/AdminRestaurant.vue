@@ -1,6 +1,7 @@
 <template>
   <div class="container py-5">
-    <div class="row">
+    <Spinner v-if="isLoading" />
+    <div v-else class="row">
       <div class="col-md-12">
         <h1>{{ restaurant.name }}</h1>
         <span class="badge badge-secondary mt-1 mb-3">
@@ -47,10 +48,14 @@
 import { emptyImageFilter } from './../utils/mixins'
 import adminAPI from './../apis/admin'
 import { Toast } from './../utils/helpers'
+import Spinner from './../components/Spinner'
 
 export default {
   name: 'AdminRestaurant',
   mixins: [emptyImageFilter],
+  components: {
+    Spinner
+  },
   data() {
     return {
       restaurant: {
@@ -62,7 +67,8 @@ export default {
         description: '',
         image: '',
         categoryName: ''
-      }
+      },
+      isLoading: true
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -91,7 +97,7 @@ export default {
           opening_hours: openingHours,
           description,
           image,
-          CategoryName: categoryName,
+          Category,
         } = data.restaurant
 
         this.restaurant = {
@@ -103,10 +109,11 @@ export default {
           openingHours,
           description,
           image,
-          categoryName
+          categoryName: Category ? Category.name : '未分類'
         }
-
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         Toast.fire({
           icon: 'warning',
           title: '無法取得餐廳資料，請稍後再試'

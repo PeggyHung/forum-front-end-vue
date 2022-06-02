@@ -25,6 +25,7 @@
             v-if="restaurant.isFavorited"
             type="button"
             class="btn btn-danger mr-2"
+            :disabled="isProcessing"
             @click.stop.prevent="deleteFavorite(restaurant.id)"
           >
             移除最愛
@@ -33,6 +34,7 @@
             v-else
             type="button"
             class="btn btn-primary"
+            :disabled="isProcessing"
             @click.stop.prevent="addFavorite(restaurant.id)"
           >
             加到最愛
@@ -57,23 +59,29 @@ export default {
   data() {
     return {
       restaurant: this.initialRestaurant,
+      isProcessing: false,
     };
   },
   methods: {
     async addFavorite(restaurantId) {
       try {
-        const data = await usersAPI.addFavorite({ restaurantId });
+        this.isProcessing = true;
+        const response = await usersAPI.addFavorite({ restaurantId });
+        // console.log("response", response);
 
-        // console.log('data', data)
+        const { statusText, data } = response;
+        // console.log("data", data);
 
-        if (data.statusText !== "OK") {
-          throw new Error(data.message);
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error(statusText);
         }
 
         this.restaurant.FavoriteCount++;
         this.restaurant.isFavorited = true;
         // console.log(this.restaurant)
+        this.isProcessing = false;
       } catch (error) {
+        this.isProcessing = false;
         Toast.fire({
           icon: "error",
           title: "無法將餐廳加入最愛，請稍後再試",
@@ -82,17 +90,21 @@ export default {
     },
     async deleteFavorite(restaurantId) {
       try {
-        const { data } = await usersAPI.deleteFavorite({ restaurantId });
+        this.isProcessing = true;
+        const response = await usersAPI.deleteFavorite({ restaurantId });
 
-        // console.log('data', data)
+        const { statusText, data } = response;
+        // console.log("data", data);
 
-        if (data.status !== "success") {
+        if (statusText !== "OK" || data.status !== "success") {
           throw new Error(data.message);
         }
 
         this.restaurant.FavoriteCount--;
         this.restaurant.isFavorited = false;
+        this.isProcessing = false;
       } catch (error) {
+        this.isProcessing = false;
         Toast.fire({
           icon: "error",
           title: "無法將餐廳移除最愛，請稍後再試",

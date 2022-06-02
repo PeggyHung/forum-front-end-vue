@@ -52,7 +52,7 @@ import { Toast } from "./../utils/helpers";
 import Spinner from './../components/Spinner'
 
 export default {
-  computed: {
+  components: {
     Spinner 
   },
   data() {

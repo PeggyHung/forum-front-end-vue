@@ -1,6 +1,7 @@
 <template>
   <div class="container py-5">
     <NavTabs />
+    
     <Spinner v-if="isLoading" />
     <template v-else>
       <h1 class="mt-5">

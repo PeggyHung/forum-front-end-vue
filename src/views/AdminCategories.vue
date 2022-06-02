@@ -16,6 +16,7 @@
           <button
             type="button"
             class="btn btn-primary"
+            :disabled="isProcessing"
             @click.stop.prevent="createCategory"
           >
             新增
@@ -23,7 +24,9 @@
         </div>
       </div>
     </form>
-    <table class="table">
+
+    <Spinner v-if="isLoading" />
+    <table v-else class="table">
       <thead class="thead-dark">
         <tr>
           <th scope="col" width="60">#</th>
@@ -92,15 +95,19 @@ import AdminNav from "@/components/AdminNav";
 // import { v4 as uuidv4 } from "uuid";
 import adminAPI from "./../apis/admin";
 import { Toast } from "./../utils/helpers";
+import Spinner from "./../components/Spinner";
 
 export default {
   components: {
     AdminNav,
+    Spinner,
   },
   data() {
     return {
       categories: [],
       newCategoryName: "",
+      isProcessing: false,
+      isLoading: true,
     };
   },
   created() {
@@ -118,7 +125,9 @@ export default {
           isEditing: false,
           nameCached: "",
         }));
+        this.isLoading = false;
       } catch (error) {
+        this.isLoading = false;
         Toast.fire({
           icon: "error",
           title: "無法取得餐廳類別，請稍後再試",
@@ -154,7 +163,7 @@ export default {
         // console.log("data", data);
 
         if (data.status !== "success") {
-          throw new Error(data.message)
+          throw new Error(data.message);
         }
 
         // 將該餐廳類別從陣列中移除
