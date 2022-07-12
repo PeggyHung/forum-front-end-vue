@@ -16,10 +16,11 @@
             {{ restaurant.description }}
           </p>
           <router-link
-            :to="{ name: 'user', params: { id: restaurant.id } }"
+            :to="{ name: 'restaurant', params: { id: restaurant.id } }"
             class="btn btn-primary mr-2"
-            >Show</router-link
           >
+            Show
+          </router-link>
 
           <button
             v-if="restaurant.isFavorited"
