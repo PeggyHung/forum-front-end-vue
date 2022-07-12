@@ -12,7 +12,7 @@
         <RestaurantCard
           v-for="restaurant in restaurants"
           :key="restaurant.id"
-          :initialRestaurant="restaurant"
+          :initial-restaurant="restaurant"
         />
       </div>
 
@@ -83,7 +83,7 @@ export default {
           page: queryPage,
           categoryId: queryCategoryId,
         });
-        // console.log('response', response)
+
         const {
           restaurants,
           categories,
@@ -93,7 +93,7 @@ export default {
           prev,
           next,
         } = response.data;
-
+        // console.log("restaurants", restaurants);
         this.restaurants = restaurants;
         this.categories = categories;
         this.categoryId = categoryId;

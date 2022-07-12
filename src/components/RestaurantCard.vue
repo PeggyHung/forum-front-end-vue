@@ -17,9 +17,9 @@
             {{ restaurant.name }}
           </router-link>
         </p>
-        <span class="badge badge-secondary">{{
-          restaurant.Category.name
-        }}</span>
+        <span class="badge badge-secondary">
+          {{ restaurant.Category ? restaurant.Category.name : "未分類" }}
+        </span>
         <p class="card-text text-truncate">
           {{ restaurant.description }}
         </p>
@@ -103,9 +103,9 @@ export default {
           ...this.restaurant,
           isFavorited: true,
         };
-        this.isProcessing = false
+        this.isProcessing = false;
       } catch (error) {
-        this.isProcessing = false
+        this.isProcessing = false;
         Toast.fire({
           icon: "error",
           title: "無法將餐廳加入最愛，請稍後再試",
